@@ -6,6 +6,7 @@ Patterns is a tracking app for anything that has inputs and outcomes: a symptom,
 
 ![Patterns demo on a wide screen](docs/screens/00-hero.png)
 
+> **Source:** https://github.com/Insightio-Prog/patterns  
 > **Live demo:** _link coming soon_
 > The AI chat runs on a small shared budget. Templates and the builder work without any AI.
 
