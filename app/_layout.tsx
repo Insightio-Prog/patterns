@@ -65,11 +65,11 @@ function PhoneFrame({ children }: { children: React.ReactNode }) {
                 height: frameHeight,
                 borderRadius: 44,
                 borderWidth: 8,
-                borderColor: '#26221E',
+                borderColor: '#3d372f',
                 overflow: 'hidden',
                 backgroundColor: '#141210',
                 transform: 'translateZ(0)',
-                boxShadow: '0 24px 80px rgba(0,0,0,0.6)',
+                boxShadow: '0 0 0 1px #6b6258, 0 0 70px rgba(255,240,220,0.08), 0 24px 80px rgba(0,0,0,0.6)',
               }
             : { flex: 1 }
         }>
