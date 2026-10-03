@@ -3,7 +3,7 @@
  * Edit freely: this file is just text. First person is Stewart's voice.
  */
 
-export const REPO_URL = ''; // add the GitHub link here when the repo exists
+export const REPO_URL = 'https://github.com/Insightio-Prog/patterns';
 
 export const DEMO_NOTE =
   'This is a live demo. The AI chat runs on a small, limited budget, so if it pauses, the templates and the builder work without any AI.';
