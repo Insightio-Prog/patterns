@@ -823,8 +823,8 @@ function ModuleSections({
             </>
           ),
         }))}
+        after={<>{tail.map(({ module, index }) => renderOne(module, index))}</>}
       />
-      {tail.map(({ module, index }) => renderOne(module, index))}
     </>
   );
 }

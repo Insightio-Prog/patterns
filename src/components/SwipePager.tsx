@@ -26,6 +26,8 @@ export interface SwipePage {
 
 interface SwipePagerProps {
   pages: SwipePage[];
+  /** Content shown directly under the pager (e.g. cards that sit on every page). */
+  after?: ReactNode;
 }
 
 /**
@@ -33,7 +35,7 @@ interface SwipePagerProps {
  * - Swipe sideways (touch / trackpad) or tap a tab to change page.
  * - The pager is only as tall as the page being shown, so there is no dead space.
  */
-export default function SwipePager({ pages }: SwipePagerProps) {
+export default function SwipePager({ pages, after }: SwipePagerProps) {
   const scrollRef = useRef<ScrollView>(null);
   const [width, setWidth] = useState(0);
   const [index, setIndex] = useState(0);
@@ -42,14 +44,18 @@ export default function SwipePager({ pages }: SwipePagerProps) {
   const targetRef = useRef<number | null>(null);
   const targetTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [heights, setHeights] = useState<Record<string, number>>({});
-  // Fixed container height = tallest page seen so far (only ever grows), so
-  // switching tabs never changes the layout and nothing below it moves.
-  const activeHeight = Object.values(heights).reduce(
+  const lastIndex = Math.max(0, pages.length - 1);
+  const activeIndex = Math.min(index, lastIndex);
+  // The pager is as tall as the page being shown, so the cards below it sit
+  // right underneath with no gap. To stop the screen jumping when you switch
+  // to a shorter page, the difference is added as empty space at the very
+  // bottom of the screen instead, keeping the total scroll length constant.
+  const tallest = Object.values(heights).reduce(
     (max, value) => Math.max(max, value),
     0,
   );
-  const lastIndex = Math.max(0, pages.length - 1);
-  const activeIndex = Math.min(index, lastIndex);
+  const activeHeight = heights[pages[activeIndex]?.key ?? ''] ?? tallest;
+  const spacerHeight = Math.max(0, tallest - activeHeight);
 
   const handleContainerLayout = useCallback((event: LayoutChangeEvent) => {
     setWidth(Math.round(event.nativeEvent.layout.width));
@@ -167,6 +173,10 @@ export default function SwipePager({ pages }: SwipePagerProps) {
           />
         ))}
       </View>
+
+      {after}
+
+      {spacerHeight > 0 ? <View style={{ height: spacerHeight }} /> : null}
     </View>
   );
 }
